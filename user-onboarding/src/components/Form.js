@@ -33,7 +33,7 @@ const UserForm = ({
     <div className='user-form'>
       <Form>
         <label htmlFor='name'>
-          Name
+          Name:
           <Field
             id='name'
             type='text'
@@ -48,7 +48,7 @@ const UserForm = ({
         </label>
 
         <label htmlFor='email'>
-          Name
+          Email: 
           <Field
             id='email'
             type='email'
@@ -63,7 +63,7 @@ const UserForm = ({
         </label>
 
         <label htmlFor='password'>
-          Name
+          Password:
           <Field
             id='password'
             type='password'
@@ -77,6 +77,43 @@ const UserForm = ({
           )}
         </label>
 
+        <label className='role'>
+          Role:
+          <Field
+            as='select'
+            className='role-select'
+            name='select'>
+              <option disabled>
+                Choose Your Role
+              </option>
+              <option value='None'>
+                None
+              </option>
+              <option value='ux'>
+                UX
+              </option>
+              <option value='data-analyst'>
+                Data Analyst
+              </option>
+              <option value='data-scientist'>
+                Data Scientist
+              </option>
+              <option value='front-end'>
+                Front-End Developer
+              </option>
+              <option value='back-end'>
+                Back-End Developer
+              </option>
+              <option value='full-stack'>
+                Full-Stack Developer
+              </option>
+              <option value='team-lead'>
+                Team-Lead
+              </option>
+            </Field>
+
+        </label>
+
         <label className='terms-of-service'>
           Terms of Service
           <Field
@@ -88,8 +125,68 @@ const UserForm = ({
 
         <button type='submit'>Submit</button>
       </Form>
+
+      {users.map(user => {
+        return (
+          <ul key={user.id}>
+            <li>
+              Name: {user.name}
+            </li>
+            <li>
+              Email: {user.email}
+            </li>
+            <li>
+              Password: {user.password}
+            </li>
+            <li>Role: {user.role}</li>
+          </ul>
+        )
+      })}
+
     </div>
   )
-}
+};
 
-export default UserForm;
+const FormikUserForm = withFormik({
+
+  mapPropsToValues(props) {
+
+    return {
+      name: props.name || '',
+      email: props.email || '',
+      password: props.password || '',
+      role: props.role || '',
+      terms: props.terms || false  
+    };
+  },
+
+  validationSchema: Yup.object().shape({
+    name: Yup.string().required(),
+  }),
+
+  handleSubmit(
+    values,
+    { setStatus, resetForm }
+  ) {
+
+    console.log('submitting', values);
+
+    axios
+      .post(
+        'https://reqres.in/api/users',
+        values
+      )
+      .then(response => {
+        console.log('success', response);
+
+        setStatus(response.data);
+
+        resetForm();
+      })
+      .catch(error => 
+        console.log(error.respomse)
+      );
+  }
+})(UserForm);
+
+export default FormikUserForm;
