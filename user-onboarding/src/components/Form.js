@@ -33,8 +33,8 @@ const UserForm = ({
 
   return (
     <div className='user-form'>
-      <Form>
-        <label htmlFor='name'>
+      <Form className='form'>
+        <label htmlFor='name' className='name'>
           Name:
           <Field
             id='name'
@@ -49,7 +49,7 @@ const UserForm = ({
           )}
         </label>
 
-        <label htmlFor='email'>
+        <label htmlFor='email' className='email'>
           Email: 
           <Field
             id='email'
@@ -64,7 +64,7 @@ const UserForm = ({
           )}
         </label>
 
-        <label htmlFor='password'>
+        <label htmlFor='password' className='password'>
           Password:
           <Field
             id='password'
@@ -116,7 +116,7 @@ const UserForm = ({
 
         </label>
 
-        <label className='terms-of-service'>
+        <label className='terms'>
           Terms of Service
           <Field
             type='checkbox'
