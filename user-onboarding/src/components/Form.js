@@ -3,6 +3,8 @@ import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 
+import './../App.css';
+
 const UserForm = ({
 
   values,
@@ -161,7 +163,9 @@ const FormikUserForm = withFormik({
   },
 
   validationSchema: Yup.object().shape({
-    name: Yup.string().required(),
+    name: Yup.string().required('Name is required'),
+    email: Yup.string().required('Email is required'),
+    password: Yup.string().required('Password is required')
   }),
 
   handleSubmit(
