@@ -1,0 +1,17 @@
+.App {
+  display: flex;
+  align-items: flex-start;
+}
+
+.form{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.name, .email, .password, .role,{
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
